@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多功能网页</title>
+</head>
+
+<body>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(8, 1fr); gap: 10px;">
+    <!-- 第一个：记事本功能 -->
+    <div>
+      <h2>临时记事</h2>
+      <textarea id="notepad" rows="10" cols="50"></textarea>
+      <button onclick="saveNotepad()">复制
+      </button>
+      <script>
+   function saveNotepad() {
+          var notepad = document.getElementById('notepad');
+          var textToCopy = notepad.value;
+          // 创建一个临时的 textarea 元素用于复制操作
+          var tempTextArea = document.createElement('textarea');
+          tempTextArea.value = textToCopy;
+          document.body.appendChild(tempTextArea);
+          tempTextArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempTextArea);
+
+          alertbox = alert('内容已复制到剪贴板');
+          setTimeout(function () {
+            if (alertBox) {
+              alertBox.close();
+            }
+          }, 1000);
+        }
+      </script>
+    </div>
+
+    <!-- 第二个：打开特定目录 -->
+ 
+
+    <!-- 第三个：待办事项 -->
+    <div>
+      <h2>代办事项</h2>
+      <input type="text" id="todoInput" placeholder="输入待办事项">
+      <button onclick="addTodo()">添加</button>
+      <ol id="todoList">
+      </ol>
+      <button onclick="deleteTodo()">删除选中项</button>
+      <script>
+        var todos = [];
+
+        function addTodo() {
+          var todoText = document.getElementById('todoInput').value;
+          if (todoText) {
+            todos.push(todoText);
+            updateTodoList();
+            document.getElementById('todoInput').value = '';
+          }
+        }
+
+        function updateTodoList() {
+          var todoList = document.getElementById('todoList');
+          todoList.innerHTML = '';
+          for (var i = 0; i < todos.length; i++) {
+            var li = document.createElement('li');
+            li.innerHTML = `<input type="checkbox"> ${todos[i]} `;
+            todoList.appendChild(li);
+          }
+        }
+
+        function deleteTodo() {
+          var checkboxes = document.getElementsByTagName('input');
+          for (var i = checkboxes.length - 1; i >= 0; i--) {
+            if (checkboxes[i].checked) {
+              todos.splice(i-1, 1);
+            }
+          }
+          updateTodoList();
+        }
+      </script>
+    </div>
+
+    <!-- 第四个：常用快捷链接 -->
+    <div>
+      <h2>常用链接</h2>
+      <a href="https://my.ouc.edu.cn" target="_blank">资产入库平台</a><br>
+      <a href="http://library.ouc.edu.cn" target="_blank">图书馆主网页 </a><br>
+      <a href="https://www.ouc.edu.cn/" target="_blank">学校官方网站</a><br>
+      <a href="https://map.baidu.com/" target="_blank">百度地图</a><br>
+      <a href="https://doubao.com/" target="_blank">豆包AI</a><br>
+      <a href="https://yiyan.baidu.com/" target="_blank">文心一言</a><br>
+    </div>
+    <!--第五个：闹钟设置-->
+    <div>
+      <div>
+        <h2>闹钟设置</h2>
+        <div>
+          <input type="number" id="alarm1Input" placeholder="输入倒计时分钟">
+          <button onclick="setAlarm1()">设置闹钟 1</button>
+          <div id="alarm1Status"></div>
+        </div>
+        <div>
+          <input type="number" id="alarm2Input" placeholder="输入倒计时分钟">
+          <button onclick="setAlarm2()">设置闹钟 2</button>
+          <div id="alarm2Status"></div>
+        </div>
+        <div>
+          <input type="number" id="alarm3Input" placeholder="输入倒计时分钟">
+          <button onclick="setAlarm3()">设置闹钟 3</button>
+          <div id="alarm3Status"></div>
+        </div>
+        <div>
+          <input type="number" id="alarm4Input" placeholder="输入倒计时分钟">
+          <button onclick="setAlarm4()">设置闹钟 4</button>
+          <div id="alarm4Status"></div>
+        </div>
+      
+        <script>
+          // 闹钟 1 的设置和倒计时逻辑
+          function setAlarm1() {
+            var minutes = parseInt(document.getElementById('alarm1Input').value);
+            if (!isNaN(minutes) && minutes > 0) {
+              var endTime = new Date().getTime() + minutes * 60000;
+              var countdownInterval = setInterval(function() {
+                var currentTime = new Date().getTime();
+                var remainingTime = Math.ceil((endTime - currentTime) / 60000);
+                if (remainingTime <= 0) {
+                  clearInterval(countdownInterval);
+                  document.getElementById('alarm1Status').innerHTML = '闹钟 1 响了！';
+                } else {
+                  document.getElementById('alarm1Status').innerHTML = '剩余 ' + remainingTime +'分钟';
+                }
+              }, 60000);
+            } else {
+              document.getElementById('alarm1Status').innerHTML = '请输入有效的分钟数';
+            }
+          }
+      
+          // 闹钟 2 的设置和倒计时逻辑
+          function setAlarm2() {
+            var minutes = parseInt(document.getElementById('alarm2Input').value);
+            if (!isNaN(minutes) && minutes > 0) {
+              var endTime = new Date().getTime() + minutes * 60000;
+              var countdownInterval = setInterval(function() {
+                var currentTime = new Date().getTime();
+                var remainingTime = Math.ceil((endTime - currentTime) / 60000);
+                if (remainingTime <= 0) {
+                  clearInterval(countdownInterval);
+                  document.getElementById('alarm2Status').innerHTML = '闹钟 2 响了！';
+                } else {
+                  document.getElementById('alarm2Status').innerHTML = '剩余 ' + remainingTime +'分钟';
+                }
+              }, 60000);
+            } else {
+              document.getElementById('alarm2Status').innerHTML = '请输入有效的分钟数';
+            }
+          }
+      
+          // 闹钟 3 的设置和倒计时逻辑
+          function setAlarm3() {
+            var minutes = parseInt(document.getElementById('alarm3Input').value);
+            if (!isNaN(minutes) && minutes > 0) {
+              var endTime = new Date().getTime() + minutes * 60000;
+              var countdownInterval = setInterval(function() {
+                var currentTime = new Date().getTime();
+                var remainingTime = Math.ceil((endTime - currentTime) / 60000);
+                if (remainingTime <= 0) {
+                  clearInterval(countdownInterval);
+                  document.getElementById('alarm3Status').innerHTML = '闹钟 3 响了！';
+                } else {
+                  document.getElementById('alarm3Status').innerHTML = '剩余 ' + remainingTime +'分钟';
+                }
+              }, 60000);
+            } else {
+              document.getElementById('alarm3Status').innerHTML = '请输入有效的分钟数';
+            }
+          }
+      
+          // 闹钟 4 的设置和倒计时逻辑
+          function setAlarm4() {
+            var minutes = parseInt(document.getElementById('alarm4Input').value);
+            if (!isNaN(minutes) && minutes > 0) {
+              var endTime = new Date().getTime() + minutes * 60000;
+              var countdownInterval = setInterval(function() {
+                var currentTime = new Date().getTime();
+                var remainingTime = Math.ceil((endTime - currentTime) / 60000);
+                if (remainingTime <= 0) {
+                  clearInterval(countdownInterval);
+                  document.getElementById('alarm4Status').innerHTML = '闹钟 4 响了！';
+                } else {
+                  document.getElementById('alarm4Status').innerHTML = '剩余 ' + remainingTime +'分钟';
+                }
+              }, 60000);
+            } else {
+              document.getElementById('alarm4Status').innerHTML = '请输入有效的分钟数';
+            }
+          }
+        </script>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

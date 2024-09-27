@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <head>
+
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+      var xmlhttp;
+      function loadXMLDoc(url) {
+        xmlhttp = null;
+        if (window.XMLHttpRequest) {// code for Firefox, Opera, IE7, etc.
+          xmlhttp = new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject) {// code for IE6, IE5
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        if (xmlhttp != null) {
+          xmlhttp.onreadystatechange = state_Change;
+          xmlhttp.open("GET", url, true);
+          xmlhttp.send(null);
+        }
+        else {
+          alert("Your browser does not support XMLHTTP.");
+        }
+      }
+
+      function state_Change() {
+        if (xmlhttp.readyState == 4) {// 4 = "loaded"
+          if (xmlhttp.status == 200) {// 200 = "OK"
+            document.getElementById('T1').innerHTML = xmlhttp.responseText;
+          }
+          else {
+            alert("Problem retrieving data:" + xmlhttp.statsText);
+          }
+        }
+      }
+      function getDate() {
+        var now = new Date();
+        var hour = now.getHours();
+        var m = now.getMinutes();
+        var s = now.getSeconds();
+        var ms = now.getMilliseconds();
+        d = document.getElementById('T1')
+        d.innerHTML = ("current Time: " + now + "<h2>" + hour + ":" + m + ":" + s + "-" + ms + "</h2>");
+
+      }
+    </script>
+  </head>
+</head>
+
+<body>
+  <button onclick="loadXMLDoc('printerlist.html')">Click Here to Get OUC Printerlist </button>
+  </br>
+  <button onclick="getDate()">Click Me To Show Date</button>
+  <label id="T1" boder="1">div </label><br />
+</body>
+
+
+
+</body>
+
+</html>

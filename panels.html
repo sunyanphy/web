@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>任务管理页面</title>
+  <style>
+   .container {
+      display: flex;
+    }
+
+   .column {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+   .task {
+      cursor: pointer;
+      padding: 5px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+      margin-bottom: 5px;
+      position: relative;
+    }
+
+   .task-edit-btn,
+   .task-delete-btn {
+      position: absolute;
+      top: 2px;
+      cursor: pointer;
+    }
+
+   .task-edit-btn {
+      right: 30px;
+    }
+
+   .task-delete-btn {
+      right: 5px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="column" id="to-do">
+      <h2>要进行</h2>
+      <div class="add-task">
+        <input type="text" id="to-do-input" placeholder="添加任务">
+        <button onclick="addTask('to-do')">添加</button>
+      </div>
+    </div>
+    <div class="column" id="in-progress">
+      <h2>正在进行</h2>
+      <div class="add-task">
+        <input type="text" id="in-progress-input" placeholder="添加任务">
+        <button onclick="addTask('in-progress')">添加</button>
+      </div>
+    </div>
+    <div class="column" id="completed">
+      <h2>已完成</h2>
+      <div class="add-task">
+        <input type="text" id="completed-input" placeholder="添加任务">
+        <button onclick="addTask('completed')">添加</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function () {
+      $(".column").sortable({
+        connectWith: ".column",
+        items: ".task",
+        handle: ".task",
+        placeholder: "task-placeholder",
+        start: function (event, ui) {
+          ui.placeholder.height(ui.item.height());
+        }
+      }).disableSelection();
+
+      $(".task").dblclick(function () {
+        let oldText = $(this).text();
+        let newInput = $("<input type='text'>").val(oldText);
+        $(this).html(newInput);
+        newInput.focus();
+        newInput.blur(function () {
+          let newText = $(this).val();
+          $(this).parent().html(newText);
+          let columnId = $(this).parent().parent().attr('id');
+          let taskId = $(this).parent().attr('id');
+          updateTaskText(taskId, columnId, newText);
+        });
+      });
+
+      // 添加编辑按钮的点击事件
+      $(document).on('click', '.task-edit-btn', function () {
+        let task = $(this).parent();
+        let oldText = task.text().replace(/×|✏/g, '');
+        let newInput = $("<input type='text'>").val(oldText);
+        task.html(newInput);
+        newInput.focus();
+        newInput.blur(function () {
+          let newText = $(this).val();
+          task.html(newText + "<span class='task-edit-btn'>✏</span><span class='task-delete-btn'>×</span>");
+          let columnId = task.parent().attr('id');
+          let taskId = task.attr('id');
+          updateTaskText(taskId, columnId, newText);
+        });
+      });
+
+      // 添加删除按钮的点击事件
+      $(document).on('click', '.task-delete-btn', function () {
+        let task = $(this).parent();
+        let columnId = task.parent().attr('id');
+        task.remove();
+        updateTaskStatus(task.attr('id'), columnId, null);
+      });
+    });
+
+    function addTask(columnId) {
+      let input = $("#" + columnId + "-input").val();
+      if (input) {
+        let newTask = $("<div class='task' id='" + Date.now() + "'>" + input + "<span class='task-edit-btn'>✏</span><span class='task-delete-btn'>×</span></div>");
+        $("#" + columnId).append(newTask);
+        $("#" + columnId + "-input").val('');
+      }
+    }
+
+    function updateTaskStatus(taskId, fromColumn, toColumn) {
+      // 这里可以通过 AJAX 向后端发送任务状态更新请求
+      console.log(`Task ${taskId} moved from ${fromColumn} to ${toColumn}`);
+    }
+
+    function updateTaskText(taskId, columnId, newText) {
+      // 这里可以通过 AJAX 向后端发送任务文本更新请求
+      console.log(`Task ${taskId} in ${columnId} updated text to ${newText}`);
+    }
+  </script>
+</body>
+
+</html>

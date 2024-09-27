@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<style>
+		.div1 {
+			padding-left: 100px;
+			font-size: larger;
+			border-radius: 4%;
+			border: solid  1px red;
+		}
+
+		dt {
+			font-weight: normal;
+			color: black;
+		}
+		dd {
+			color: #757070;
+		}
+
+	
+
+		p  {
+
+			font-family: Georgia, sans-serif;
+
+		}
+
+		body {
+			background-color: #C0C0C0;
+			padding: 50px;
+		}
+
+		img {
+			height: 100px;
+			width: auto;
+		}
+
+		span {
+			padding-right: 15px;
+		}
+		footer {
+			text-align: center;
+
+		}
+	</style>
+	<title>打印机列表</title>
+
+</head>
+
+<body onload="update();">
+	<div align="center" float="block">
+		<h1 style="color: white;">中国海洋大学图书馆复合打印机列表</h1>
+		<div class="div1" align="left">
+			<dl>
+				<dt>
+					<p><span>TOSHIBA 2010AC</span></span><span>TB-FC30C</span><span>T-FC415C</span></p>
+				</dt>
+				<dd> 崂山二楼资源建设28ip
+
+				</dd>
+				<dd><a href="http://222.195.226.120" target="_blank">崂山四楼参考咨询120ip</a>
+				</dd>
+				<dd> </dd>
+				<dt>
+					<p><span>TOSHIBA 2515AC</span></p>
+				</dt>
+				<dd> 崂山四楼过刊404**<a href="images/崂山四楼.jpg" onmouseover="">图片</a></dd>
+				<dd> 崂山二楼总台**<a href="images/崂山总台.jpg" onmouseover="">图片</a>
+				<dd>
+				<dd>崂山五楼信息空间**<a href="images/崂山五楼.jpg" onmouseover="">图片</a>
+				<dd>
+				<dt>
+					<p> <span>TOSHIBA 2505AC </span><span>TB-FC505C</span><span>T-FC505C</span></p>
+				</dt>
+				<dd> 崂山综合办公室A309
+				<dd>
+				<dd>鱼山四楼电阅
+				<dd>
+				<dd>鱼山三楼现刊
+				<dd>
+				<dt>
+					<p> <span>TOSHIBA 2508A </span><span>无需废粉仓</span><span>T-</span></p>
+				</dt>
+				<dd> 崂山三楼社科<a href="images/崂山三楼.jpg">图片</a>
+				<dd>
+
+				<dt>
+					<p><span>TOSHIBA 2110AC </span><span>TB-FC30C</span><span>T-FC415C</span></p>
+				</dt>
+				<dd>西海岸2台
+				<dd>
+				<dt>
+			
+						<p><span>TOSHIBA 2618A</span><span>无需废粉仓</span><span>T5018C</span></p>
+				</dt>
+				<dd>西海岸2台
+				<dd>
+				<dt>
+					<p><span>TOSHIBA 2520AC </span><span>TB-FC30C</span><span>T-FC425C</span></p>
+				</dt>
+				<dd>西海岸1台
+				<dd>
+				<dt>
+					<p><span>TOSHIBA 2525AC</span><span>TB-FC425C</span><span>T-FC425C</span></p>
+				</dt>
+				<dd>
+					 西海岸1台
+				<dd>
+				<dt>
+					<p><span>TOSHIBA 3055C</span><span>TB-FC425C</span><span>T-FC425C</span></p>
+				</dt>
+				<dd> 系统与技术部
+				<dd>
+			</dl>
+		</div>
+
+		<script type="text/javascript">
+
+			function getdate() {
+				document.getElementById("demo").innerHTML = Date().toString();
+			}
+			function update() {
+				setInterval("getdate()", 100);
+			}
+		</script>
+		<script>
+			for (let i = 0; i < array.length; i++) {
+				const element = array[i];
+				for (let t = 0; t < element.length; t++) {
+					const data = element[t];
+					objectp = document.createElement('p');
+					objectp.innerHTML=data;
+
+					
+				}
+				
+			}
+		</script>
+
+
+	</div></br>
+	<footer>
+
+		<br >Posted by: sunyanphy;Contact information: <a
+				href="mailto:sunyanphy@126.com">sunyanphy@126.com</a>
+			<br />
+			<a id="demo">加载时间失败！</a>
+			<br />
+			© 2024 sailor
+		</p>
+	</footer>
+
+
+</body>
+
+</html>
